@@ -94,7 +94,7 @@ module.exports.detectFreeze = async (input, timeLength) => {
     log.info(`${freezeDetectLogLabel}: start detecting freeze parts`);
     const timeArg = formatTimeArg(timeLength);
     const { stdout, stderr } = await execute(
-      `ffmpeg ${timeArg} -nostats -i ${input} -vf freezedetect -f null -`,
+      `ffmpeg ${timeArg} -nostats -i ${input} -max_muxing_queue_size 9999 -vf freezedetect -f null -`,
       cfg.commandLineBuffer,
     );
     log.debug(`${freezeDetectLogLabel}: stdout \n ${stdout}`);
