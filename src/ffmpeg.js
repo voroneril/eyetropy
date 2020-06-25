@@ -48,7 +48,7 @@ module.exports.detectBlack = async (input, timeLength) => {
     log.info(`${blackDetectLogLabel}: start detecting black parts`);
     const timeArg = formatTimeArg(timeLength);
     const { stdout, stderr } = await execute(
-      `ffmpeg ${timeArg} -nostats -i ${input} -vf blackdetect -f null -`,
+      `ffmpeg ${timeArg} -nostats -i ${input} -max_muxing_queue_size 9999 -vf blackdetect -f null -`,
       cfg.commandLineBuffer,
     );
     log.debug(`${blackDetectLogLabel}: stdout \n ${stdout}`);
@@ -140,7 +140,7 @@ module.exports.detectSilence = async (input, timeLength) => {
     log.info(`${silenceDetectLogLabel}: start detecting silent parts`);
     const timeArg = formatTimeArg(timeLength);
     const { stdout, stderr } = await execute(
-      `ffmpeg ${timeArg} -nostats -i ${input} -af silencedetect -f null -`,
+      `ffmpeg ${timeArg} -nostats -i ${input} -max_muxing_queue_size 9999 -af silencedetect -f null -`,
       cfg.commandLineBuffer,
     );
     log.debug(`${silenceDetectLogLabel}: stdout \n ${stdout}`);
