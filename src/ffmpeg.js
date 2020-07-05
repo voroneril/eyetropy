@@ -47,8 +47,9 @@ module.exports.detectBlack = async (input, timeLength) => {
   try {
     log.info(`${blackDetectLogLabel}: start detecting black parts`);
     const timeArg = formatTimeArg(timeLength);
+    const timeout = timeLength + 20;
     const { stdout, stderr } = await execute(
-      `ffmpeg ${timeArg} -nostats -i ${input} -max_muxing_queue_size 9999 -vf blackdetect -f null -`,
+      `timeout ${timeout} ffmpeg ${timeArg} -nostats -i ${input} -max_muxing_queue_size 9999 -vf blackdetect -f null -`,
       cfg.commandLineBuffer,
     );
     log.debug(`${blackDetectLogLabel}: stdout \n ${stdout}`);
@@ -93,8 +94,9 @@ module.exports.detectFreeze = async (input, timeLength) => {
   try {
     log.info(`${freezeDetectLogLabel}: start detecting freeze parts`);
     const timeArg = formatTimeArg(timeLength);
+    const timeout = timeLength + 20;
     const { stdout, stderr } = await execute(
-      `ffmpeg ${timeArg} -nostats -i ${input} -max_muxing_queue_size 9999 -vf freezedetect -f null -`,
+      `timeout ${timeout} ffmpeg ${timeArg} -nostats -i ${input} -max_muxing_queue_size 9999 -vf freezedetect -f null -`,
       cfg.commandLineBuffer,
     );
     log.debug(`${freezeDetectLogLabel}: stdout \n ${stdout}`);
@@ -139,8 +141,9 @@ module.exports.detectSilence = async (input, timeLength) => {
   try {
     log.info(`${silenceDetectLogLabel}: start detecting silent parts`);
     const timeArg = formatTimeArg(timeLength);
+    const timeout = timeLength + 20;
     const { stdout, stderr } = await execute(
-      `ffmpeg ${timeArg} -nostats -i ${input} -max_muxing_queue_size 9999 -af silencedetect -f null -`,
+      `timeout ${timeout} ffmpeg ${timeArg} -nostats -i ${input} -max_muxing_queue_size 9999 -af silencedetect -f null -`,
       cfg.commandLineBuffer,
     );
     log.debug(`${silenceDetectLogLabel}: stdout \n ${stdout}`);
